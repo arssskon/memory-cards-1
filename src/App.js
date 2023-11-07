@@ -1,19 +1,28 @@
-import './style.css';
-import Grid from './components/Grid';
-import {images, visibleItems, finishedItems} from "./data.js"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { PageViewSet } from './components/PageViewSet';
+import { PageCreateSet } from './components/PageCreateSet';
+import { FormCreateSet } from './components/FormCreateSet'
+import { FormCreateCard } from './components/FormCreateCard'
 
 
+import { PageSelectSet } from './components/PageSelectSet';
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <section className='game container'>
-        <Grid 
-        images={images} 
-        visibleItems={visibleItems}  finishedItems={finishedItems}
-        />
-      </section>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<PageSelectSet/>} />
+        <Route path="/set" element={<PageViewSet/>} />
+        <Route path="/admin" element={<PageCreateSet/>} > 
+            <Route path="set" element={<FormCreateSet/>}/>
+            <Route path="card" element={<FormCreateCard/>}/>
+        </Route>
+        <Route path="*" element={<PageCreateSet/>} />
+
+        <Route path="/set/:id" element={<PageViewSet/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
